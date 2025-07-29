@@ -133,6 +133,14 @@
       }
     }
 
+    /* Enable native momentum scrolling on iOS / touch devices */
+  @layer utilities {
+    .touch-scroll-x {
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-x;
+    }
+  }
+
   @keyframes twinkle {
     0%,
     100% {

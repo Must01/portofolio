@@ -153,32 +153,24 @@ export const PhotographySection = () => {
     if (!scrollContainer || isHovered || filteredPhotos.length <= 3) return;
 
     let animationId;
-    let scrollPosition = scrollContainer.scrollLeft;
+    let scrollPos = scrollContainer.scrollLeft;
 
-    const scroll = () => {
+    const autoScroll = () => {
       if (!isHovered && scrollContainer) {
-        scrollPosition += 0.5; // Slower, smoother scrolling
-
-        // Check if we've scrolled past the first set of photos
+        scrollPos += 0.5;
         const maxScroll = scrollContainer.scrollWidth / 2;
-        if (scrollPosition >= maxScroll) {
-          scrollPosition = 0;
+        if (scrollPos >= maxScroll) {
+          scrollPos = 0;
           scrollContainer.scrollLeft = 0;
         } else {
-          scrollContainer.scrollLeft = scrollPosition;
+          scrollContainer.scrollLeft = scrollPos;
         }
-
-        animationId = requestAnimationFrame(scroll);
+        animationId = requestAnimationFrame(autoScroll);
       }
     };
 
-    animationId = requestAnimationFrame(scroll);
-
-    return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-      }
-    };
+    animationId = requestAnimationFrame(autoScroll);
+    return () => cancelAnimationFrame(animationId);
   }, [isHovered, activeCategory, filteredPhotos.length]);
 
   return (
@@ -250,7 +242,9 @@ export const PhotographySection = () => {
         >
           <div
             ref={scrollRef}
-            className="flex gap-6 overflow-x-auto scrollbar-hide py-2"
+            className="flex gap-6 overflow-x-auto scrollbar-hide touch-scroll-x py-2"
+            onTouchStart={() => setIsHovered(true)}
+            onTouchEnd={() => setIsHovered(false)}
           >
             {photos.map((photo, index) => (
               <div

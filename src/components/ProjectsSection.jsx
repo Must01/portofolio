@@ -89,9 +89,7 @@ export const ProjectsSection = () => {
 
     const scroll = () => {
       if (!isHovered && scrollContainer) {
-        scrollPosition += 0.5; // Slower, smoother scrolling
-
-        // Check if we've scrolled past the first set of projects
+        scrollPosition += 0.5;
         const maxScroll = scrollContainer.scrollWidth / 2;
         if (scrollPosition >= maxScroll) {
           scrollPosition = 0;
@@ -99,18 +97,12 @@ export const ProjectsSection = () => {
         } else {
           scrollContainer.scrollLeft = scrollPosition;
         }
-
         animationId = requestAnimationFrame(scroll);
       }
     };
 
     animationId = requestAnimationFrame(scroll);
-
-    return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-      }
-    };
+    return () => cancelAnimationFrame(animationId);
   }, [isHovered]);
 
   return (
@@ -132,7 +124,10 @@ export const ProjectsSection = () => {
         >
           <div
             ref={scrollRef}
-            className="flex gap-8 overflow-x-auto scrollbar-hide py-2"
+            className="flex gap-8 overflow-x-auto scrollbar-hide touch-scroll-x py-2"
+            style={{ width: "100%" }}
+            onTouchStart={() => setIsHovered(true)}
+            onTouchEnd={() => setIsHovered(false)}
           >
             {projects.map((project, index) => {
               const demoHref =
