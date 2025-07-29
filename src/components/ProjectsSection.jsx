@@ -1,4 +1,6 @@
+// src/components/ProjectsSection.jsx
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { ExternalLink, Code, CheckCircle } from "lucide-react";
 
 import certificateGenerator from "@/assets/projects/certificateGenerator.png";
@@ -31,7 +33,7 @@ const projects = [
   },
   {
     title: "DevJobs",
-    desc: "DevJobs is a Laravel 12-based web application for posting, filtering, and discovering job opportunities. Employers can showcase their companies, and job seekers can browse by tags like React, Laravel, or Remote",
+    desc: "DevJobs is a Laravel 12-based web application for posting, filtering, and discovering job opportunities. Employers can showcase their companies, and job seekers can browse by tags ",
     img: devjobs,
     demo: "",
     repo: "https://github.com/Must01/DevJobs",
@@ -40,7 +42,7 @@ const projects = [
   },
   {
     title: "AirMust Booking App",
-    desc: "AirMust: A Booking Application AirMust is a full-stack booking application built using the MERN stack (MongoDB, Express, React, and Node.js)",
+    desc: "AirMust: A Booking Application AirMust is a full-stack booking application built using the MERN stack",
     img: airmust,
     demo: "",
     repo: "https://github.com/Must01/AirMust-Booking-app",
@@ -90,14 +92,9 @@ export const ProjectsSection = () => {
 
     const loop = () => {
       if (!isHovered && scrollRef.current) {
-        pos += 0.5; // speed
+        pos += 0.5;
         const max = scrollRef.current.scrollWidth / 2;
-        if (pos >= max) {
-          pos = 0;
-          scrollRef.current.scrollLeft = 0;
-        } else {
-          scrollRef.current.scrollLeft = pos;
-        }
+        scrollRef.current.scrollLeft = pos >= max ? 0 : pos;
         frameId = requestAnimationFrame(loop);
       }
     };
@@ -117,22 +114,22 @@ export const ProjectsSection = () => {
           results for businesses like yours.
         </p>
 
-        {/* Horizontal Scrolling Projects Container */}
         <div
           className="mb-12 overflow-hidden py-4"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <div
-            ref={scrollRef}
-            className="flex gap-8 scroll-container scrollbar-hide py-2"
-          >
-            {projects.map((project, index) => {
-              const demoHref =
-                project.demo || `/demo/${encodeURIComponent(project.title)}`;
+          <div ref={scrollRef} className="flex gap-8 scroll-container py-2">
+            {projects.map((project, idx) => {
+              // If demo is truthy use external link, otherwise point to our placeholder route
+              const hasDemo = Boolean(project.demo);
+              const demoHref = hasDemo
+                ? project.demo
+                : `/demo/${encodeURIComponent(project.title)}`;
+
               return (
                 <div
-                  key={`${project.title}-${index}`}
+                  key={idx}
                   className="bg-card rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 flex-shrink-0"
                   style={{ width: "350px" }}
                 >
@@ -154,20 +151,18 @@ export const ProjectsSection = () => {
                       <p className="text-muted-foreground mb-3 text-sm leading-relaxed">
                         {project.desc}
                       </p>
-
-                      {!project.impact ? null : (
+                      {project.impact && (
                         <div className="flex items-center gap-2 mb-3">
                           <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
                           <span className="text-sm font-medium text-green-600">
-                            {!project.impact ? " " : project.impact}
+                            {project.impact}
                           </span>
                         </div>
                       )}
-
                       <div className="flex flex-wrap gap-2 mb-4 max-h-16 overflow-y-auto">
-                        {project.tech.map((tech, idx) => (
+                        {project.tech.map((tech, i) => (
                           <span
-                            key={idx}
+                            key={i}
                             className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded-full whitespace-nowrap"
                           >
                             {tech}
@@ -177,10 +172,9 @@ export const ProjectsSection = () => {
                     </div>
 
                     <div className="flex space-x-3">
-                      {/* Live Demo button */}
-                      {project.demo ? (
+                      {hasDemo ? (
                         <a
-                          href={project.demo}
+                          href={demoHref}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center space-x-1 px-4 py-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition text-sm flex-1 justify-center"
@@ -189,13 +183,15 @@ export const ProjectsSection = () => {
                           <span>Live Demo</span>
                         </a>
                       ) : (
-                        <button className="flex items-center space-x-1 px-4 py-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition text-sm flex-1 justify-center">
+                        <Link
+                          to={demoHref}
+                          className="flex items-center space-x-1 px-4 py-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition text-sm flex-1 justify-center"
+                        >
                           <ExternalLink size={16} />
-                          <span>View Project</span>
-                        </button>
+                          <span>View Demo</span>
+                        </Link>
                       )}
 
-                      {/* View Code button */}
                       <a
                         href={project.repo}
                         target="_blank"
@@ -221,7 +217,7 @@ export const ProjectsSection = () => {
             className="inline-flex items-center px-6 py-3 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
           >
             <Code className="h-5 w-5 mr-2" />
-            View All Projects on GitHub
+            View All on GitHub
           </a>
         </div>
       </div>

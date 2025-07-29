@@ -13,14 +13,12 @@ export const Home = () => {
   return (
     <div className="min-h-screen relative overflow-x-hidden">
       <StarBackground />
-      <Navbar />
       <HeroSection />
       <AboutSection />
       <SkillsSection />
       <ProjectsSection />
       <PhotographySection /> {/* Add the new photography section */}
       <ContactSection />
-      <Footer />
     </div>
   );
 };

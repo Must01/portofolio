@@ -1,8 +1,5 @@
-// src/pages/DemoPlaceholder.jsx
 import { useParams, useNavigate } from "react-router-dom";
 import { StarBackground } from "@/components/StarBackground";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 
 export const DemoPlaceholder = () => {
   const { project } = useParams();
@@ -10,14 +7,11 @@ export const DemoPlaceholder = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Subtle animated background */}
+      {/* Subtle animated stars in the background */}
       <StarBackground />
 
-      {/* Navbar */}
-      <Navbar />
-
       {/* Main content */}
-      <main className="relative z-10 flex flex-col items-center justify-center text-center px-4 py-46">
+      <main className="relative z-10 flex flex-col items-center justify-center text-center px-4 py-40">
         <div className="max-w-lg bg-card/80 backdrop-blur-lg p-8 rounded-2xl shadow-lg animate-fade-in">
           <h1 className="text-3xl font-bold mb-4">🚧 Demo Unavailable</h1>
           <p className="text-muted-foreground mb-6">
@@ -40,9 +34,6 @@ export const DemoPlaceholder = () => {
           </div>
         </div>
       </main>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };

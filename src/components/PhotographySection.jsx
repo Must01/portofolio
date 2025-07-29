@@ -241,10 +241,7 @@ export const PhotographySection = () => {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <div
-            ref={scrollRef}
-            className="flex gap-6 scroll-container scrollbar-hide py-2"
-          >
+          <div ref={scrollRef} className="flex gap-6 scroll-container py-2">
             {photos.map((photo, index) => (
               <div
                 key={photo.id}

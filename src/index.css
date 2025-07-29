@@ -144,15 +144,6 @@
   .scroll-container > * {
     scroll-snap-align: start;
   }
-
-  /* hide scrollbar if you like */
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
 }
 
   @keyframes twinkle {
