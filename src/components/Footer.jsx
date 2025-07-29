@@ -5,7 +5,6 @@ import {
   Linkedin,
   Github,
   Coffee,
-  Heart,
   DollarSign,
 } from "lucide-react";
 
@@ -29,11 +28,6 @@ const socials = [
     href: "https://ko-fi.com/mustaphabouddahr",
     icon: Coffee,
     label: "Ko‑fi",
-  },
-  {
-    href: "https://buymeacoffee.com/mustaphabouddahr",
-    icon: Heart,
-    label: "Buy Me A Coffee",
   },
   {
     href: "https://www.paypal.me/mustaphabouddahr",

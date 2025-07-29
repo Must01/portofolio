@@ -4,7 +4,6 @@ import {
   Instagram,
   Github,
   Coffee,
-  Heart,
   DollarSign,
   MessageCircle,
   ExternalLink,
@@ -66,14 +65,6 @@ const contacts = [
     bg: "bg-rose-500",
     text: "text-white",
     hoverBg: "hover:bg-rose-600",
-  },
-  {
-    name: "Buy Me A Coffee",
-    href: "https://buymeacoffee.com/mustaphabouddahr",
-    icon: Heart,
-    bg: "bg-amber-500",
-    text: "text-white",
-    hoverBg: "hover:bg-amber-600",
   },
   {
     name: "PayPal",
