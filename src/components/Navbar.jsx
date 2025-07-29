@@ -8,17 +8,36 @@ const navItems = [
   { name: "About", href: "#about" },
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
-  { name: "photography", href: "#photography" },
+  { name: "Photography", href: "#photography" },
   { name: "Contact", href: "#contact" },
 ];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("#hero");
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+
+      // find the first section whose top is >= 0 and closest to the viewport top
+      let current = "#hero";
+      navItems.forEach((item) => {
+        const el = document.querySelector(item.href);
+        if (el) {
+          const top = el.getBoundingClientRect().top;
+          if (top <= 80) {
+            // under navbar height
+            current = item.href;
+          }
+        }
+      });
+      setActiveSection(current);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // init
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -43,20 +62,26 @@ export const Navbar = () => {
             <a
               key={i}
               href={item.href}
-              className="relative text-sm font-medium text-foreground/80 hover:text-primary transition-colors duration-300 group"
+              className={cn(
+                "relative text-sm font-medium transition-colors duration-300",
+                activeSection === item.href
+                  ? "text-primary"
+                  : "text-foreground/80 hover:text-primary"
+              )}
             >
-              <span className="group-hover:underline underline-offset-4">
-                {item.name}
-              </span>
+              {item.name}
+              {activeSection === item.href && (
+                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary" />
+              )}
             </a>
           ))}
         </div>
 
-        {/* Actions: Theme Toggle + Mobile Menu */}
+        {/* Actions */}
         <div className="flex items-center space-x-2">
           <ThemeToggle />
           <button
-            onClick={() => setIsMenuOpen((p) => !p)}
+            onClick={() => setIsMenuOpen((v) => !v)}
             className="md:hidden p-2 text-foreground z-50"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           >
@@ -64,11 +89,10 @@ export const Navbar = () => {
           </button>
         </div>
 
-        {/* Mobile Menu Panel */}
+        {/* Mobile Menu */}
         <div
           className={cn(
-            "fixed inset-0 bg-background/95 backdrop-blur-md z-40 flex flex-col items-center justify-center",
-            "transition-all duration-300 md:hidden",
+            "fixed inset-0 bg-background/95 backdrop-blur-md z-40 flex flex-col items-center justify-center md:hidden transition-all duration-300",
             isMenuOpen
               ? "opacity-100 pointer-events-auto"
               : "opacity-0 pointer-events-none"
@@ -80,7 +104,12 @@ export const Navbar = () => {
                 key={i}
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
-                className="text-foreground/90 hover:text-primary transition-colors duration-300"
+                className={cn(
+                  "transition-colors duration-300",
+                  activeSection === item.href
+                    ? "text-primary"
+                    : "text-foreground/90 hover:text-primary"
+                )}
               >
                 {item.name}
               </a>

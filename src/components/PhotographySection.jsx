@@ -149,29 +149,30 @@ export const PhotographySection = () => {
       : photos.filter((photo) => photo.category === activeCategory);
 
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer || isHovered || filteredPhotos.length <= 3) return;
+    // Disable auto-scroll on mobile
+    if (window.matchMedia("(max-width: 767px)").matches) return;
+    if (!scrollRef.current || isHovered || filtered.length <= 3) return;
 
-    let animationId;
-    let scrollPos = scrollContainer.scrollLeft;
+    let frameId;
+    let pos = scrollRef.current.scrollLeft;
 
-    const autoScroll = () => {
-      if (!isHovered && scrollContainer) {
-        scrollPos += 0.5;
-        const maxScroll = scrollContainer.scrollWidth / 2;
-        if (scrollPos >= maxScroll) {
-          scrollPos = 0;
-          scrollContainer.scrollLeft = 0;
+    const loop = () => {
+      if (!isHovered && scrollRef.current) {
+        pos += 0.5;
+        const max = scrollRef.current.scrollWidth / 2;
+        if (pos >= max) {
+          pos = 0;
+          scrollRef.current.scrollLeft = 0;
         } else {
-          scrollContainer.scrollLeft = scrollPos;
+          scrollRef.current.scrollLeft = pos;
         }
-        animationId = requestAnimationFrame(autoScroll);
+        frameId = requestAnimationFrame(loop);
       }
     };
 
-    animationId = requestAnimationFrame(autoScroll);
-    return () => cancelAnimationFrame(animationId);
-  }, [isHovered, activeCategory, filteredPhotos.length]);
+    frameId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(frameId);
+  }, [isHovered, activeCategory, filtered.length]);
 
   return (
     <section
@@ -242,13 +243,11 @@ export const PhotographySection = () => {
         >
           <div
             ref={scrollRef}
-            className="flex gap-6 overflow-x-auto scrollbar-hide touch-scroll-x py-2"
-            onTouchStart={() => setIsHovered(true)}
-            onTouchEnd={() => setIsHovered(false)}
+            className="flex gap-6 scroll-container scrollbar-hide py-2"
           >
             {photos.map((photo, index) => (
               <div
-                key={`${photo.id}-${index}`}
+                key={photo.id}
                 className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer flex-shrink-0"
                 style={{ width: "300px", height: "300px" }}
                 onMouseEnter={() => setHoveredPhoto(photo.id)}

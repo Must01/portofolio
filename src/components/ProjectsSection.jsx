@@ -81,28 +81,29 @@ export const ProjectsSection = () => {
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer || isHovered) return;
+    // Only run auto-scroll on desktop (min-width: 768px)
+    if (window.matchMedia("(max-width: 767px)").matches) return;
+    if (!scrollRef.current || isHovered) return;
 
-    let animationId;
-    let scrollPosition = scrollContainer.scrollLeft;
+    let frameId;
+    let pos = scrollRef.current.scrollLeft;
 
-    const scroll = () => {
-      if (!isHovered && scrollContainer) {
-        scrollPosition += 0.5;
-        const maxScroll = scrollContainer.scrollWidth / 2;
-        if (scrollPosition >= maxScroll) {
-          scrollPosition = 0;
-          scrollContainer.scrollLeft = 0;
+    const loop = () => {
+      if (!isHovered && scrollRef.current) {
+        pos += 0.5; // speed
+        const max = scrollRef.current.scrollWidth / 2;
+        if (pos >= max) {
+          pos = 0;
+          scrollRef.current.scrollLeft = 0;
         } else {
-          scrollContainer.scrollLeft = scrollPosition;
+          scrollRef.current.scrollLeft = pos;
         }
-        animationId = requestAnimationFrame(scroll);
+        frameId = requestAnimationFrame(loop);
       }
     };
 
-    animationId = requestAnimationFrame(scroll);
-    return () => cancelAnimationFrame(animationId);
+    frameId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(frameId);
   }, [isHovered]);
 
   return (
@@ -124,10 +125,7 @@ export const ProjectsSection = () => {
         >
           <div
             ref={scrollRef}
-            className="flex gap-8 overflow-x-auto scrollbar-hide touch-scroll-x py-2"
-            style={{ width: "100%" }}
-            onTouchStart={() => setIsHovered(true)}
-            onTouchEnd={() => setIsHovered(false)}
+            className="flex gap-8 scroll-container scrollbar-hide py-2"
           >
             {projects.map((project, index) => {
               const demoHref =

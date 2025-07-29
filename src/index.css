@@ -133,13 +133,27 @@
       }
     }
 
-    /* Enable native momentum scrolling on iOS / touch devices */
   @layer utilities {
-    .touch-scroll-x {
-      -webkit-overflow-scrolling: touch;
-      touch-action: pan-x;
-    }
+  /* Native horizontal scrolling + scroll-snap (optional) */
+  .scroll-container {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;     /* cards snap into place */
+    -webkit-overflow-scrolling: touch; /* momentum on iOS */
+    touch-action: pan-x;               /* horizontal pan */
   }
+  .scroll-container > * {
+    scroll-snap-align: start;
+  }
+
+  /* hide scrollbar if you like */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
 
   @keyframes twinkle {
     0%,
