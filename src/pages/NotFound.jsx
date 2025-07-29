@@ -11,7 +11,6 @@ export const NotFound = () => {
   return (
     <div className="min-h-screen relative overflow-hidden">
       <StarBackground />
-      <Navbar />
 
       <main className="relative z-10 flex flex-col items-center justify-center text-center px-4 py-48">
         <div className="max-w-md bg-card/80 backdrop-blur-lg p-8 rounded-2xl shadow-lg animate-fade-in">
@@ -27,8 +26,6 @@ export const NotFound = () => {
           </button>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 };

@@ -1,10 +1,11 @@
-// src/components/ContactSection.jsx
 import {
   Mail,
   Linkedin,
   Instagram,
   Github,
   Coffee,
+  Heart,
+  DollarSign,
   MessageCircle,
   ExternalLink,
 } from "lucide-react";
@@ -69,10 +70,18 @@ const contacts = [
   {
     name: "Buy Me A Coffee",
     href: "https://buymeacoffee.com/mustaphabouddahr",
-    icon: Coffee,
+    icon: Heart,
     bg: "bg-amber-500",
     text: "text-white",
     hoverBg: "hover:bg-amber-600",
+  },
+  {
+    name: "PayPal",
+    href: "https://www.paypal.me/mustaphabouddahr",
+    icon: DollarSign,
+    bg: "bg-blue-600",
+    text: "text-white",
+    hoverBg: "hover:bg-blue-700",
   },
 ];
 

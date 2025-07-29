@@ -1,5 +1,13 @@
 // src/components/Footer.jsx
-import { ArrowUp, Instagram, Linkedin, Github, Coffee } from "lucide-react";
+import {
+  ArrowUp,
+  Instagram,
+  Linkedin,
+  Github,
+  Coffee,
+  Heart,
+  DollarSign,
+} from "lucide-react";
 
 const socials = [
   {
@@ -24,8 +32,13 @@ const socials = [
   },
   {
     href: "https://buymeacoffee.com/mustaphabouddahr",
-    icon: Coffee,
+    icon: Heart,
     label: "Buy Me A Coffee",
+  },
+  {
+    href: "https://www.paypal.me/mustaphabouddahr",
+    icon: DollarSign,
+    label: "PayPal",
   },
 ];
 

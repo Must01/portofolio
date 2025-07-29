@@ -7,7 +7,7 @@ export const StarBackground = () => {
 
   useEffect(() => {
     const checkTheme = () => {
-      setIsDarkMode(document.documentElement.classList.contains("dark"));
+      setIsDarkMode(document.documentElement.classList.contains("light"));
     };
 
     checkTheme();
