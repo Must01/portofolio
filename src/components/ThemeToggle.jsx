@@ -1,49 +1,32 @@
-import { Moon, Sun } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
 
 export const ThemeToggle = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
-  // keep same theme on refresh
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    storedTheme === "dark" ? setIsDarkMode(true) : setIsDarkMode(false);
-    if (storedTheme === "dark") {
-      setIsDarkMode(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      setIsDarkMode(false);
-      document.documentElement.classList.remove("dark");
-    }
+    const theme =
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches);
+    setIsDark(theme);
+    document.documentElement.classList.toggle("dark", theme);
   }, []);
 
-  // toggle theme on button click
-  const switchTheme = () => {
-    if (isDarkMode) {
-      document.documentElement.classList.remove("dark");
-      setIsDarkMode(false);
-      localStorage.setItem("theme", "light");
-    } else {
-      document.documentElement.classList.add("dark");
-      setIsDarkMode(true);
-      localStorage.setItem("theme", "dark");
-    }
+  const toggle = () => {
+    const next = !isDark;
+    localStorage.theme = next ? "dark" : "light";
+    document.documentElement.classList.toggle("dark", next);
+    setIsDark(next);
   };
 
   return (
     <button
-      onClick={switchTheme}
-      className={cn(
-        "fixed max-sm:hidden top-5 right-5 z-50 p-2 rounded-full transition-colors duration-300",
-        "focus:outlin-hidden"
-      )}
+      onClick={toggle}
+      aria-label="Toggle theme"
+      className="p-2 rounded-full bg-card/50 hover:bg-card transition"
     >
-      {isDarkMode ? (
-        <Sun className="h-6 w-6 text-yellow-300" />
-      ) : (
-        <Moon className="h-6 w-6 text-blue-900" />
-      )}
+      {isDark ? <Sun size={20} /> : <Moon size={20} />}
     </button>
   );
 };
