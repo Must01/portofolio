@@ -151,7 +151,7 @@ export const PhotographySection = () => {
   useEffect(() => {
     // Disable auto-scroll on mobile
     if (window.matchMedia("(max-width: 767px)").matches) return;
-    if (!scrollRef.current || isHovered || filtered.length <= 3) return;
+    if (!scrollRef.current || isHovered || filteredPhotos.length <= 3) return;
 
     let frameId;
     let pos = scrollRef.current.scrollLeft;
@@ -172,7 +172,7 @@ export const PhotographySection = () => {
 
     frameId = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(frameId);
-  }, [isHovered, activeCategory, filtered.length]);
+  }, [isHovered, activeCategory, filteredPhotos.length]);
 
   return (
     <section
