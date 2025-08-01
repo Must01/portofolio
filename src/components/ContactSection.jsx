@@ -53,19 +53,19 @@ const contacts = [
   // Freelance Platforms
   {
     name: "Fiverr",
-    href: "https://www.fiverr.com/mustaphabouddahr",
+    href: "https://www.fiverr.com/mustaphabouddah",
     icon: Briefcase,
     description: "Quick gigs & services",
   },
   {
     name: "Upwork",
-    href: "https://www.upwork.com/freelancers/mustaphabouddahr",
+    href: "https://www.upwork.com/freelancers/~01f52f001fa1b99257?mp_source=share",
     icon: User,
     description: "Long-term projects",
   },
   {
     name: "Freelancer",
-    href: "https://www.freelancer.com/u/mustaphabouddahr",
+    href: "https://www.freelancer.com/u/mustaphab98?frm=mustaphab98&sb=t",
     icon: Briefcase,
     description: "Competitive bidding",
   },
