@@ -24,15 +24,6 @@ const projects = [
     impact: "Search and filter through notes easily",
   },
   {
-    title: "Fuji – Modern Note Taking App",
-    desc: "Fuji include custom notes colors, tags, search, theming, authentication, and real-time updates.",
-    img: fuji,
-    demo: "https://fuji.laravel.cloud/",
-    repo: "https://github.com/Must01/Fuji",
-    tech: ["Laravel", "Livewire", "Mongodb", "Alpine.js"],
-    impact: "Search and filter through notes easily",
-  },
-  {
     title: "Certificate Generator",
     desc: "Web app that generates professional PDF certificates instantly. Built for educational institutions and businesses.",
     img: certificateGenerator,
