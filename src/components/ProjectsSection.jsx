@@ -11,8 +11,27 @@ import dreamscapejourney from "@/assets/projects/dreamscapejourney.png";
 import jobs from "@/assets/projects/jobs.png";
 import airmust from "@/assets/projects/airmust.png";
 import devjobs from "@/assets/projects/devjobs.png";
+import fuji from "@/assets/projects/fuji.png";
 
 const projects = [
+  {
+    title: "Fuji – Modern Note Taking App",
+    desc: "Fuji include custom notes colors, tags, search, theming, authentication, and real-time updates.",
+    img: fuji,
+    demo: "https://fuji.laravel.cloud/",
+    repo: "https://github.com/Must01/Fuji",
+    tech: ["Laravel", "Livewire", "Mongodb", "Alpine.js"],
+    impact: "Search and filter through notes easily",
+  },
+  {
+    title: "Fuji – Modern Note Taking App",
+    desc: "Fuji include custom notes colors, tags, search, theming, authentication, and real-time updates.",
+    img: fuji,
+    demo: "https://fuji.laravel.cloud/",
+    repo: "https://github.com/Must01/Fuji",
+    tech: ["Laravel", "Livewire", "Mongodb", "Alpine.js"],
+    impact: "Search and filter through notes easily",
+  },
   {
     title: "Certificate Generator",
     desc: "Web app that generates professional PDF certificates instantly. Built for educational institutions and businesses.",
